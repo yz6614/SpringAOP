@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * 创建类的时候用的还是spring显示注入， AOP使用的是注解编制的方式
+ * 创建类的时候用的还是spring显示注入， AOP使用的是AspectJ注解编制的方式
  */
 
 public class ScanWithXMLTest {

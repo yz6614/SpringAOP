@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- *
+ *当前例子实验使用aop切面织入增强， 增强的Bean使用自动扫描后在xml中通过ref引用，实现了xml和注解的混合使用
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:applicationContextXMLWithAutowired.xml"})

@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- *
+ *创建类的时候用的还是spring自动注入， AOP使用的是AspectJ注解编制的方式
  */
 @ContextConfiguration(locations={"classpath:applicationContext.xml"}) //加载配置文件
 public class autowiredWishAutoScanTest extends BaseTestTemplate{
