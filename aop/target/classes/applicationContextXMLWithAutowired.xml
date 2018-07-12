@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+    <!-- 首相要实例化目标对象类和切面类 -->
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    <context:component-scan base-package="com.tl.aop"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <aop:config>
+        <!-- 要切入的对象 -->
+        <!-- 使用正则表达式
+            <aop:pointcut expression="execution(* com.itnba.test.*.chifan(..))" id="chifan"/>
+            <aop:pointcut expression="execution(* com.itnba.test.*.shijiao(..))" id="shijiao"/>
+         -->
+        <aop:pointcut expression="execution(* com.tl.aop.serviceImplement.Chinese.doMeal(..)) and args(name, meal, ..)" id="doMealCNb"/>
+        <aop:pointcut expression="execution(* com.tl.aop.serviceImplement.Chinese.doMeal(..))" id="doMealCNf"/>
+
+        <aop:pointcut expression="execution(* com.tl.aop.serviceImplement.Chinese.doShower(..))" id="doShowerCN"/>
+        <aop:pointcut expression="execution(* com.tl.aop.serviceImplement.American.doMeal(..)) and args(name, meal, ..)" id="doMealEUb"/>
+        <aop:pointcut expression="execution(* com.tl.aop.serviceImplement.American.doMeal(..))" id="doMealEUf"/>
+        <aop:pointcut expression="execution(* com.tl.aop.serviceImplement.American.doShower(..))" id="doShowerEU"/>
+        <!-- 切入点 -->
+        <aop:aspect id="cn" ref="aopServiceWithXMLCN"><!-- 切面类  -->
+            <!--  <aop:之前before、之后after... method="切面类中的方法" pointcut-ref="上面的切入的对象"/>
+            这个地方要注意
+            -->
+            <aop:before method="chifanqian" pointcut-ref="doMealCNb" arg-names="name,meal"/><!-- 之前通知 -->
+            <aop:after method="chifanhou" pointcut-ref="doMealCNf" /><!-- 之后通知 -->
+            <aop:before method="shuijiaoqian" pointcut-ref="doShowerCN"/>
+        </aop:aspect>
+        <aop:aspect id="eu" ref="aopServiceWithXMLEU"><!-- 切面类  -->
+            <!--  <aop:之前before、之后after... method="切面类中的方法" pointcut-ref="上面的切入的对象"/>  -->
+            <aop:before method="chifanqian" pointcut-ref="doMealEUb" arg-names="name,meal"/><!-- 之前通知 -->
+            <aop:after method="chifanhou" pointcut-ref="doMealEUf"/><!-- 之后通知 -->
+            <aop:before method="shuijiaoqian" pointcut-ref="doShowerEU"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
